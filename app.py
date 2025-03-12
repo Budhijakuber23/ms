@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, jsonify
-from google import genai
-import os
+import google.generativeai as genai  # Corrected import
 import json
 
-api_key = "AIzaSyAF0_D4EZVNFUQ8icwlOUNXvcd4WEiv5yE"
+# Set up Gemini API
+genai.configure(api_key="AIzaSyAF0_D4EZVNFUQ8icwlOUNXvcd4WEiv5yE")
 
 client = genai.Client(api_key=api_key)
 
@@ -34,7 +34,7 @@ def generate_murder_mystery():
     }
     """
 
-    response = client.models.generate_content(
+    response =genai.generate_text(
         model="gemini-2.0-flash",
         contents=prompt
     )
@@ -54,7 +54,7 @@ def generate_murder_mystery():
      
     '''
 
-    response2 = client.models.generate_content(
+    response2 =genai.generate_text(
         model="gemini-2.0-flash",
         contents=prompt2
     )
@@ -100,7 +100,7 @@ def interrogate():
     Respond in a natural way, like a real suspect under interrogation.
     """
 
-    response = client.models.generate_content(
+    response = genai.generate_text(
         model="gemini-2.0-flash",
         contents=prompt
     )
