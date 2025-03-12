@@ -5,7 +5,8 @@ import json
 
 api_key = "AIzaSyAF0_D4EZVNFUQ8icwlOUNXvcd4WEiv5yE"
 
-client = genai.Client(api_key=api_key)
+genai.configure(api_key=api_key)
+
 
 app = Flask(__name__)
 
@@ -34,9 +35,9 @@ def generate_murder_mystery():
     }
     """
 
-    response = client.models.generate_content(
+    response = genai.generate_content(
         model="gemini-2.0-flash",
-        contents=prompt
+        prompt=prompt
     )
 
 
@@ -53,11 +54,15 @@ def generate_murder_mystery():
     } 
      
     '''
-
-    response2 = client.models.generate_content(
+    response2 = genai.generate_content(
         model="gemini-2.0-flash",
-        contents=prompt2
+        prompt=prompt2
     )
+
+    # response2 = client.models.generate_content(
+    #     model="gemini-2.0-flash",
+    #     contents=prompt2
+    # )
 
     cleaned_text = response2.text.split("```json")[1].split("```")[0].strip()
     # Extract JSON from Gemini's response
