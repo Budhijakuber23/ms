@@ -1,12 +1,11 @@
 from flask import Flask, render_template, request, jsonify
-import google.generativeai as genai
+from google import genai
 import os
 import json
 
 api_key = "AIzaSyAF0_D4EZVNFUQ8icwlOUNXvcd4WEiv5yE"
 
-genai.configure(api_key=api_key)
-
+client = genai.Client(api_key=api_key)
 
 app = Flask(__name__)
 
@@ -35,9 +34,9 @@ def generate_murder_mystery():
     }
     """
 
-    response = genai.generate_content(
+    response = client.models.generate_content(
         model="gemini-2.0-flash",
-        prompt=prompt
+        contents=prompt
     )
 
 
@@ -54,15 +53,11 @@ def generate_murder_mystery():
     } 
      
     '''
-    response2 = genai.generate_content(
-        model="gemini-2.0-flash",
-        prompt=prompt2
-    )
 
-    # response2 = client.models.generate_content(
-    #     model="gemini-2.0-flash",
-    #     contents=prompt2
-    # )
+    response2 = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=prompt2
+    )
 
     cleaned_text = response2.text.split("```json")[1].split("```")[0].strip()
     # Extract JSON from Gemini's response
