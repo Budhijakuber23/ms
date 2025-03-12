@@ -5,9 +5,8 @@ import json
 # Set up Gemini API
 genai.configure(api_key="AIzaSyAF0_D4EZVNFUQ8icwlOUNXvcd4WEiv5yE")
 
-client = genai.Client(api_key=api_key)
-
 app = Flask(__name__)
+
 
 # Global variable to store the generated murder mystery
 murder_mystery = None
