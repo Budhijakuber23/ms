@@ -1,0 +1,3 @@
+Flask
+google-generativeai
+gunicorn  # For deployment (optional)
